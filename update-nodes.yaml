@@ -1,0 +1,17 @@
+---
+- name: Update Cardano Nodes
+  hosts: nodes
+
+  tasks:
+    - name: Updates apt packages safe
+      become: true
+      ansible.builtin.apt:
+        upgrade: safe
+    - name: Stop Cardano Node
+      become: true
+      ansible.builtin.service:
+        name: cardano-node
+        state: stopped
+    - name: Reboot Node
+      become: true
+      ansible.builtin.reboot:
